@@ -14,7 +14,12 @@ import java.util.UUID;
 
 public class FleshArmorCurse extends Enchantment {
 
-    private final EquipmentSlot[] slots = EquipmentSlot.values();
+    private final EquipmentSlot[] slots = {
+            EquipmentSlot.HEAD,
+            EquipmentSlot.CHEST,
+            EquipmentSlot.LEGS,
+            EquipmentSlot.FEET
+    };
     private static final UUID[] UUIDSlots = {
             UUID.fromString("a04eebbc-f63d-4885-8e5b-f431e152307f"), //head
             UUID.fromString("8126b90d-e3a6-41bf-bdba-64ccf4581caa"), //chest
@@ -70,18 +75,24 @@ public class FleshArmorCurse extends Enchantment {
 
     public void applyModifiers(int level, int slotIndex, ItemAttributeModifierEvent event) {
         if (level > 0) {
+            /*
+            for now, these modifiers will apply flat values to the modifiers,
+            but in the future they should apply percentages
+            */
+
+            //this affects the player's armor attribute instead of the intended item's armor value research this later
             AttributeModifier modifierArmor = new AttributeModifier(
                     UUIDSlots[slotIndex],
                     "Curse of Flesh Armor",
-                    1f,
-                    AttributeModifier.Operation.MULTIPLY_BASE);
+                    2f,
+                    AttributeModifier.Operation.ADDITION);
 
             //max health lost only takes effect when the player takes damage for some reason, research how to deal with that later
             AttributeModifier modifierHealth = new AttributeModifier(
                     UUIDSlots[slotIndex],
                     "Curse of Flesh Armor",
-                    -0.2f,
-                    AttributeModifier.Operation.MULTIPLY_BASE);
+                    -2f,
+                    AttributeModifier.Operation.ADDITION);
 
             event.addModifier(Attributes.ARMOR, modifierArmor);
             event.addModifier(Attributes.MAX_HEALTH, modifierHealth);
