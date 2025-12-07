@@ -16,7 +16,6 @@ import java.util.UUID;
 public class MisfortuneCurse extends Enchantment {
 
     private final EquipmentSlot[] slots = EquipmentSlot.values();
-    //private final AttributeModifier modifier;
 
     private static final UUID[] UUIDSlots = {
             UUID.fromString("a04eebbc-f63d-4885-8e5b-f431e152307f"), //head
@@ -71,7 +70,7 @@ public class MisfortuneCurse extends Enchantment {
             AttributeModifier modifier = new AttributeModifier(
                     UUIDSlots[slotIndex],
                     "Curse of Misfortune",
-                    -10f,
+                    -5f,
                     AttributeModifier.Operation.ADDITION);
 
             event.addModifier(Attributes.LUCK, modifier);

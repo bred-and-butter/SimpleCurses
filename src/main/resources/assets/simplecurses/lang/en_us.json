@@ -2,7 +2,7 @@
   "itemGroup.simplecurses": "Simple Curses",
 
   "enchantment.simplecurses.darkness": "Curse of Darkness",
-  "enchantment.simplecurses.flesharmor": "Curse of Flesh Armor",
+  "enchantment.simplecurses.flesh_armor": "Curse of Flesh Armor",
   "enchantment.simplecurses.insomnia": "Curse of Insomnia",
   "enchantment.simplecurses.misfortune": "Curse of Misfortune",
   "enchantment.simplecurses.war": "Curse of War",
@@ -18,7 +18,7 @@
   "enchantment.simplecurses.pride": "Curse of Pride",
 
   "enchantment.simplecurses.darkness.desc": "Inflicts Darkness on the wearer",
-  "enchantment.simplecurses.flesharmor.desc": "Equipment's armor is doubled, but you lose maximum health while wearing it",
+  "enchantment.simplecurses.flesh_armor.desc": "Equipment's armor is increased, but you lose maximum health while wearing it",
   "enchantment.simplecurses.insomnia.desc": "You cannot sleep. Phantoms spawn every night",
   "enchantment.simplecurses.misfortune.desc": "Greatly reduced Luck",
   "enchantment.simplecurses.war.desc": "Neutral mobs are always hostile",
