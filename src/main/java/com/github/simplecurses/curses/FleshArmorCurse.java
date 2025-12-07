@@ -21,10 +21,10 @@ public class FleshArmorCurse extends Enchantment {
             EquipmentSlot.FEET
     };
     private static final UUID[] UUIDSlots = {
-            UUID.fromString("a04eebbc-f63d-4885-8e5b-f431e152307f"), //head
-            UUID.fromString("8126b90d-e3a6-41bf-bdba-64ccf4581caa"), //chest
-            UUID.fromString("24545cf0-55fe-4ebd-8236-6d093204725b"), //legs
-            UUID.fromString("b50fa1dc-2c99-4403-b7a6-c2a63c0bb666"), //feet
+            UUID.fromString("a17222c2-ac5a-4939-b7ee-da8f375bcb07"), //head
+            UUID.fromString("a74d2944-0cd4-4456-b066-d159a70ec2ba"), //chest
+            UUID.fromString("ffb657e4-02b7-4079-9522-4a77f7e87814"), //legs
+            UUID.fromString("73b255a6-8968-4d7f-83d2-27aea19fafca"), //feet
     };
 
     public FleshArmorCurse() {
@@ -39,6 +39,11 @@ public class FleshArmorCurse extends Enchantment {
                 }
         );
         MinecraftForge.EVENT_BUS.addListener(this::checkModifiers);
+    }
+
+    @Override
+    public int getMaxLevel() {
+        return 3;
     }
 
     @Override
@@ -84,14 +89,14 @@ public class FleshArmorCurse extends Enchantment {
             AttributeModifier modifierArmor = new AttributeModifier(
                     UUIDSlots[slotIndex],
                     "Curse of Flesh Armor",
-                    2f,
+                    2f * level,
                     AttributeModifier.Operation.ADDITION);
 
             //max health lost only takes effect when the player takes damage for some reason, research how to deal with that later
             AttributeModifier modifierHealth = new AttributeModifier(
                     UUIDSlots[slotIndex],
                     "Curse of Flesh Armor",
-                    -2f,
+                    -2f * level,
                     AttributeModifier.Operation.ADDITION);
 
             event.addModifier(Attributes.ARMOR, modifierArmor);

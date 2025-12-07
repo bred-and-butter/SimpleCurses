@@ -28,7 +28,7 @@
   "enchantment.simplecurses.greed.desc": "Has Fortune III, but take damage whenever gold, emeralds or diamonds enter your inventory",
   "enchantment.simplecurses.envy.desc": "Has Looting III, but take damage whenever you kill a mob",
   "enchantment.simplecurses.gluttony.desc": "Your exact Hunger level is hidden and you can eat when full",
-  "enchantment.simplecurses.sloth.desc": "Reduced attack, mining and movement speed. Increased each night spent awake",
+  "enchantment.simplecurses.sloth.desc": "Reduced attack, mining and movement speed. Reduced further each night spent awake",
   "enchantment.simplecurses.lust.desc": "Whenever you breed animals, one more baby is born, but they cannot reproduce",
   "enchantment.simplecurses.wrath.desc": "Gain Strength and Speed whenever you kill X mobs, up to 5, but you have weakness and slowness otherwise",
   "enchantment.simplecurses.pride.desc": "For every effect you have"
