@@ -3,6 +3,7 @@ package com.github.simplecurses.init;
 import com.github.simplecurses.SimpleCurses;
 import com.github.simplecurses.curses.DarknessCurse;
 import com.github.simplecurses.curses.FleshArmorCurse;
+import com.github.simplecurses.curses.InsomniaCurse;
 import com.github.simplecurses.curses.MisfortuneCurse;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.registries.DeferredRegister;
@@ -15,4 +16,5 @@ public class EnchantmentInit {
     public static final RegistryObject<Enchantment> DARKNESS = ENCHANTMENTS.register("darkness", DarknessCurse::new);
     public static final RegistryObject<Enchantment> MISFORTUNE = ENCHANTMENTS.register("misfortune", MisfortuneCurse::new);
     public static final RegistryObject<Enchantment> FLESHARMOR = ENCHANTMENTS.register("flesh_armor", FleshArmorCurse::new);
+    public static final RegistryObject<Enchantment> INSOMNIA = ENCHANTMENTS.register("insomnia", InsomniaCurse::new);
 }
