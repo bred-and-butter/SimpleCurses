@@ -1,18 +1,26 @@
 package com.github.simplecurses.curses;
 
+import com.mojang.logging.LogUtils;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.ItemAttributeModifierEvent;
+import org.slf4j.Logger;
 
 import java.util.UUID;
 
 public class FleshArmorCurse extends Enchantment {
+
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     private final EquipmentSlot[] slots = {
             EquipmentSlot.HEAD,
@@ -38,7 +46,8 @@ public class FleshArmorCurse extends Enchantment {
                         EquipmentSlot.FEET
                 }
         );
-        MinecraftForge.EVENT_BUS.addListener(this::checkModifiers);
+        //MinecraftForge.EVENT_BUS.addListener(this::checkModifiers);
+        MinecraftForge.EVENT_BUS.addListener(this::onEquipmentChange);
     }
 
     @Override
@@ -101,6 +110,46 @@ public class FleshArmorCurse extends Enchantment {
 
             event.addModifier(Attributes.ARMOR, modifierArmor);
             event.addModifier(Attributes.MAX_HEALTH, modifierHealth);
+        }
+    }
+
+    public void onEquipmentChange(LivingEquipmentChangeEvent event){
+        LivingEntity entity = event.getEntity();
+        ItemStack equipment = event.getTo();
+        EquipmentSlot slot = event.getSlot();
+
+        if (entity instanceof Player && (
+                slot == EquipmentSlot.HEAD ||
+                slot == EquipmentSlot.CHEST ||
+                slot == EquipmentSlot.LEGS ||
+                slot == EquipmentSlot.FEET
+        )
+        ) {
+            int slotIndex = switch (slot) {
+                case HEAD -> 0;
+                case CHEST -> 1;
+                case LEGS -> 2;
+                case FEET -> 3;
+                default -> 0;
+            };
+
+            final int level = EnchantmentHelper.getTagEnchantmentLevel(this, equipment);
+
+            AttributeInstance maxHealth = entity.getAttribute(Attributes.MAX_HEALTH);
+            assert maxHealth != null;
+            maxHealth.removeModifier(UUIDSlots[slotIndex]);
+
+            if (level > 0) {
+                maxHealth.addTransientModifier(new AttributeModifier(
+                        UUIDSlots[slotIndex],
+                        "Curse of Flesh Armor",
+                        -2f * level,
+                        AttributeModifier.Operation.ADDITION
+                ));
+
+                LOGGER.info(String.format("%f %f", entity.getMaxHealth(), entity.getHealth()));
+                entity.setHealth(Math.min(entity.getMaxHealth(), entity.getHealth()));
+            }
         }
     }
 }

@@ -31,5 +31,5 @@
   "enchantment.simplecurses.sloth.desc": "Reduced attack, mining and movement speed. Reduced further each night spent awake",
   "enchantment.simplecurses.lust.desc": "Whenever you breed animals, one more baby is born, but they cannot reproduce",
   "enchantment.simplecurses.wrath.desc": "Gain Strength and Speed whenever you kill X mobs, up to 5, but you have weakness and slowness otherwise",
-  "enchantment.simplecurses.pride.desc": "For every effect you have"
+  "enchantment.simplecurses.pride.desc": "If you are at full health, gain increased movement speed, jump height and armor toughness, but if not, you have mining fatigue and weakness, and gain slowness when hit."
 }
