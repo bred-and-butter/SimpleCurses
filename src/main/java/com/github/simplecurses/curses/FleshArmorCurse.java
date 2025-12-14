@@ -1,6 +1,5 @@
 package com.github.simplecurses.curses;
 
-import com.mojang.logging.LogUtils;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -13,13 +12,10 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.common.MinecraftForge;
-import org.slf4j.Logger;
 
 import java.util.UUID;
 
 public class FleshArmorCurse extends Enchantment {
-
-    private static final Logger LOGGER = LogUtils.getLogger();
 
     private final EquipmentSlot[] slots = {
             EquipmentSlot.HEAD,
@@ -102,7 +98,6 @@ public class FleshArmorCurse extends Enchantment {
                         AttributeModifier.Operation.ADDITION
                 ));
 
-                LOGGER.info(String.format("%f %f", entity.getMaxHealth(), entity.getHealth()));
                 entity.setHealth(Math.min(entity.getMaxHealth(), entity.getHealth()));
             }
         }
