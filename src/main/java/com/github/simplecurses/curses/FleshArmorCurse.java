@@ -9,7 +9,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
-import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -46,7 +45,6 @@ public class FleshArmorCurse extends Enchantment {
                         EquipmentSlot.FEET
                 }
         );
-        //MinecraftForge.EVENT_BUS.addListener(this::checkModifiers);
         MinecraftForge.EVENT_BUS.addListener(this::onEquipmentChange);
     }
 
@@ -58,59 +56,6 @@ public class FleshArmorCurse extends Enchantment {
     @Override
     public boolean isCurse() {
         return true;
-    }
-
-    private boolean isValidSlot (EquipmentSlot slot) {
-        for (final EquipmentSlot validSlot : this.slots) {
-            if (validSlot == slot) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void checkModifiers(ItemAttributeModifierEvent event) {
-        EquipmentSlot slot = event.getSlotType();
-
-        if (slot == LivingEntity.getEquipmentSlotForItem(event.getItemStack()) && this.isValidSlot(slot) && event.getItemStack().hasTag()) {
-            final int level = EnchantmentHelper.getTagEnchantmentLevel(this, event.getItemStack());
-
-            int slotIndex = switch (slot) {
-                case HEAD -> 0;
-                case CHEST -> 1;
-                case LEGS -> 2;
-                case FEET -> 3;
-                default -> 0;
-            };
-
-            this.applyModifiers(level, slotIndex, event);
-        }
-    }
-
-    public void applyModifiers(int level, int slotIndex, ItemAttributeModifierEvent event) {
-        if (level > 0) {
-            /*
-            for now, these modifiers will apply flat values to the modifiers,
-            but in the future they should apply percentages
-            */
-
-            //this affects the player's armor attribute instead of the intended item's armor value research this later
-            AttributeModifier modifierArmor = new AttributeModifier(
-                    UUIDSlots[slotIndex],
-                    "Curse of Flesh Armor",
-                    2f * level,
-                    AttributeModifier.Operation.ADDITION);
-
-            //max health lost only takes effect when the player takes damage for some reason, research how to deal with that later
-            AttributeModifier modifierHealth = new AttributeModifier(
-                    UUIDSlots[slotIndex],
-                    "Curse of Flesh Armor",
-                    -2f * level,
-                    AttributeModifier.Operation.ADDITION);
-
-            event.addModifier(Attributes.ARMOR, modifierArmor);
-            event.addModifier(Attributes.MAX_HEALTH, modifierHealth);
-        }
     }
 
     public void onEquipmentChange(LivingEquipmentChangeEvent event){
@@ -136,14 +81,24 @@ public class FleshArmorCurse extends Enchantment {
             final int level = EnchantmentHelper.getTagEnchantmentLevel(this, equipment);
 
             AttributeInstance maxHealth = entity.getAttribute(Attributes.MAX_HEALTH);
-            assert maxHealth != null;
+            AttributeInstance armor = entity.getAttribute(Attributes.ARMOR);
+            assert (maxHealth != null) && (armor != null);
+
             maxHealth.removeModifier(UUIDSlots[slotIndex]);
+            armor.removeModifier(UUIDSlots[slotIndex]);
 
             if (level > 0) {
                 maxHealth.addTransientModifier(new AttributeModifier(
                         UUIDSlots[slotIndex],
                         "Curse of Flesh Armor",
                         -2f * level,
+                        AttributeModifier.Operation.ADDITION
+                ));
+
+                armor.addTransientModifier(new AttributeModifier(
+                        UUIDSlots[slotIndex],
+                        "Curse of Flesh Armor",
+                        2f * level,
                         AttributeModifier.Operation.ADDITION
                 ));
 
