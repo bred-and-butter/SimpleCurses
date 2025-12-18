@@ -46,7 +46,7 @@ public class EchoesCurse extends Enchantment {
 
         final Player player = event.player;
 
-        if (player.level().isClientSide() && player.isAlive() && player.tickCount % 200 == 0 && player.getRandom().nextDouble() < 1.0) {
+        if (player.level().isClientSide() && player.isAlive() && player.tickCount % 1200 == 0 && player.getRandom().nextDouble() < 0.2) {
             final int level = EnchantmentHelper.getEnchantmentLevel(this, player);
 
             if (level > 0) {
