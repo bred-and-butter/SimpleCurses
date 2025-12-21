@@ -1,16 +1,24 @@
 package com.github.simplecurses.curses;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlot.Type;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.TickEvent.LevelTickEvent;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class MisfortuneCurse extends Enchantment {
@@ -29,6 +37,7 @@ public class MisfortuneCurse extends Enchantment {
     public MisfortuneCurse() {
 		super(Rarity.UNCOMMON, EnchantmentCategory.BREAKABLE, EquipmentSlot.values());
         MinecraftForge.EVENT_BUS.addListener(this::checkModifiers);
+        MinecraftForge.EVENT_BUS.addListener(this::checkLightningSpawn);
     }
 
     @Override
@@ -65,7 +74,7 @@ public class MisfortuneCurse extends Enchantment {
         }
     }
 
-    public void applyModifiers(int level, int slotIndex, ItemAttributeModifierEvent event) {
+    private void applyModifiers(int level, int slotIndex, ItemAttributeModifierEvent event) {
         if (level > 0) {
             AttributeModifier modifier = new AttributeModifier(
                     UUIDSlots[slotIndex],
@@ -75,5 +84,53 @@ public class MisfortuneCurse extends Enchantment {
 
             event.addModifier(Attributes.LUCK, modifier);
         }
+    }
+
+    private void checkLightningSpawn(LevelTickEvent event) {
+        if (event.phase != TickEvent.Phase.END) return;
+        if (event.level.isClientSide()) return;
+
+        Level level = event.level;
+        int time = (int) (level.getDayTime() % 24000);
+
+        if (time % 1200 == 0 && level.getRandom().nextDouble() < 0.05) {
+            for (Player player : level.players()) {
+                if (this.hasCurse(player) && level.canSeeSky(player.blockPosition())) {
+                    this.spawnLightningAtPlayer(player, level);
+                }
+            }
+        }
+    }
+
+    private void spawnLightningAtPlayer(Player player, Level level) {
+        if (!player.isAlive()) return;
+
+        BlockPos blockpos = player.blockPosition();
+
+        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level);
+        if (lightningBolt != null) {
+            lightningBolt.moveTo(blockpos, 0, 0);
+            level.addFreshEntity(lightningBolt);
+        }
+    }
+
+    private boolean hasCurse(Player player) {
+        int level = 0;
+        ArrayList<ItemStack> equipments = new ArrayList<>();
+        equipments.add(player.getItemBySlot(EquipmentSlot.HEAD));
+        equipments.add(player.getItemBySlot(EquipmentSlot.CHEST));
+        equipments.add(player.getItemBySlot(EquipmentSlot.LEGS));
+        equipments.add(player.getItemBySlot(EquipmentSlot.FEET));
+        equipments.add(player.getItemBySlot(EquipmentSlot.MAINHAND));
+        equipments.add(player.getItemBySlot(EquipmentSlot.OFFHAND));
+
+        for (ItemStack equipment : equipments) {
+            level = EnchantmentHelper.getTagEnchantmentLevel(this, equipment);
+            if (level > 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

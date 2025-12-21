@@ -64,7 +64,6 @@ public class InsomniaCurse extends Enchantment {
         }
     }
 
-
     private void spawnPhantoms(Player player, Level level) {
         if (!player.isAlive()) return;
 
