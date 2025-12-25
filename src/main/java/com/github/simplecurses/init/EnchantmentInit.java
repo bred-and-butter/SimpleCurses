@@ -15,5 +15,7 @@ public class EnchantmentInit {
     public static final RegistryObject<Enchantment> FLESHARMOR = ENCHANTMENTS.register("flesh_armor", FleshArmorCurse::new);
     public static final RegistryObject<Enchantment> INSOMNIA = ENCHANTMENTS.register("insomnia", InsomniaCurse::new);
     public static final RegistryObject<Enchantment> ECHOES = ENCHANTMENTS.register("echoes", EchoesCurse::new);
+    public static final RegistryObject<Enchantment> SINKING = ENCHANTMENTS.register("sinking", SinkingCurse::new);
+    public static final RegistryObject<Enchantment> RUIN = ENCHANTMENTS.register("ruin", RuinCurse::new);
     public static final RegistryObject<Enchantment> WAR = ENCHANTMENTS.register("war", WarCurse::new);
 }
