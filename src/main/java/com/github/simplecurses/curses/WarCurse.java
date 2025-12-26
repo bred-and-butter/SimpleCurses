@@ -24,7 +24,7 @@ public class WarCurse extends Enchantment {
     private static final int AGGRO_DURATION = 600;
 
     public WarCurse() {
-        super(Rarity.VERY_RARE, EnchantmentCategory.ARMOR_CHEST, new EquipmentSlot[]{EquipmentSlot.CHEST});
+        super(Rarity.VERY_RARE, EnchantmentCategory.ARMOR_LEGS, new EquipmentSlot[]{EquipmentSlot.LEGS});
         MinecraftForge.EVENT_BUS.addListener(this::onPlayerTick);
     }
 
