@@ -4,6 +4,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.monster.piglin.Piglin;
@@ -14,22 +16,16 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 public class WarCurse extends Enchantment {
-    private static final Map<UUID, Integer> activePlayers = new HashMap<>();
     private static final int AGGRO_RANGE = 20;
-    private static final int AGGRO_DURATION = 2400;
+    private static final int AGGRO_DURATION = 600;
 
     public WarCurse() {
         super(Rarity.VERY_RARE, EnchantmentCategory.ARMOR_CHEST, new EquipmentSlot[]{EquipmentSlot.CHEST});
         MinecraftForge.EVENT_BUS.addListener(this::onPlayerTick);
-        MinecraftForge.EVENT_BUS.addListener(this::onPlayerLogout);
     }
 
     @Override
@@ -46,10 +42,9 @@ public class WarCurse extends Enchantment {
         if (player.level().isClientSide()) return;
         
         int curseLevel = EnchantmentHelper.getEnchantmentLevel(this, player);
-        if (curseLevel > 0 && player.tickCount % 200 == 0) {
-            activePlayers.put(player.getUUID(), 1);
+        if (curseLevel > 0 && player.tickCount % 40 == 0) {
             angerNeutralMobs(player);
-        } else activePlayers.remove(player.getUUID());
+        }
     }
 
     private void angerNeutralMobs (Player player) {
@@ -63,7 +58,7 @@ public class WarCurse extends Enchantment {
         List<Mob> mobsInRange = player.level().getEntitiesOfClass(Mob.class, area);
 
         for (Mob mob : mobsInRange) {
-            if (isNeutralMob(mob) && canBecomeAggressive(mob, player)) {
+            if (isNeutralMob(mob) && canBecomeAggressive(mob)) {
                 makeAggressive(mob, player);
             }
         }
@@ -78,7 +73,7 @@ public class WarCurse extends Enchantment {
         return false;
     }
 
-    private boolean canBecomeAggressive(Mob mob, Player player) {
+    private boolean canBecomeAggressive(Mob mob) {
         if (mob instanceof TamableAnimal tamable && tamable.isTame()) {
             return false;
         }
@@ -95,6 +90,10 @@ public class WarCurse extends Enchantment {
             return !wolf.isTame();
         }
 
+        if (mob instanceof Piglin piglin) {
+            return !piglin.getBrain().hasMemoryValue(MemoryModuleType.ANGRY_AT);
+        }
+
         return true;
     }
 
@@ -106,8 +105,7 @@ public class WarCurse extends Enchantment {
                 neutralMob.setTarget(player);
             }
         } else if (mob instanceof Piglin piglin) {
-            piglin.setLastHurtByMob(player);
-            piglin.setTarget(player);
+            makePiglinAggressive(piglin, player);
         } else if (mob instanceof IronGolem golem) {
             golem.setTarget(player);
         }
@@ -119,11 +117,22 @@ public class WarCurse extends Enchantment {
             // Generic mob targeting
             mob.setTarget(player);
         }
-
-
     }
 
-    public void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
-        activePlayers.remove(event.getEntity().getUUID());
+    private void makePiglinAggressive(Piglin piglin, Player player) {
+        final Brain<Piglin> brain = piglin.getBrain();
+
+        // 1. Make piglin angry at player
+        brain.setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, player.getUUID(), AGGRO_DURATION);
+
+        // 2. Set player as attack target
+        brain.setMemoryWithExpiry(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, player, AGGRO_DURATION);
+
+        // 3. Force hunting behavior (bypasses gold armor check)
+        brain.setMemoryWithExpiry(MemoryModuleType.HUNTED_RECENTLY, true, AGGRO_DURATION);
+
+        // 4. Clear pacification memories
+        brain.eraseMemory(MemoryModuleType.ADMIRING_ITEM);
+        brain.eraseMemory(MemoryModuleType.ADMIRING_DISABLED);
     }
 }

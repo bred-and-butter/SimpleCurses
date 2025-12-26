@@ -33,7 +33,7 @@ public class IgnoranceCurse extends Enchantment {
 
                 final Player user = event.getPlayer();
                 //event.getLevel().playSound(user, user.blockPosition(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS);
-                user.playSound(SoundEvents.ITEM_BREAK);
+                user.playSound(SoundEvents.ITEM_BREAK); //doesnt work
             }
         }
     }

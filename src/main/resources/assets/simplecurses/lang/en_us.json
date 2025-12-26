@@ -31,7 +31,7 @@
   "enchantment.simplecurses.ignorance.desc": "Breaking the wrong type of block with this tool causes severe durability damage",
   "enchantment.simplecurses.war.desc": "Neutral mobs are always hostile",
   "enchantment.simplecurses.death.desc": "Lose maximum health every time you die, recover your health by killing mobs",
-  "enchantment.simplecurses.famine.desc": "Hunges depletes thrice as fast",
+  "enchantment.simplecurses.famine.desc": "Hunger depletes thrice as fast",
   "enchantment.simplecurses.pestilence.desc": "Eating or drinking poisons you",
   "enchantment.simplecurses.greed.desc": "Has Fortune III, but take damage whenever gold, emeralds or diamonds enter your inventory",
   "enchantment.simplecurses.envy.desc": "Has Looting III, but take damage whenever you kill a mob",
