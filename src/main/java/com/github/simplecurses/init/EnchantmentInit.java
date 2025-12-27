@@ -19,5 +19,6 @@ public class EnchantmentInit {
     public static final RegistryObject<Enchantment> RUIN = ENCHANTMENTS.register("ruin", RuinCurse::new);
     public static final RegistryObject<Enchantment> IGNORANCE = ENCHANTMENTS.register("ignorance", IgnoranceCurse::new);
     public static final RegistryObject<Enchantment> WAR = ENCHANTMENTS.register("war", WarCurse::new);
-    //public static final RegistryObject<Enchantment> PESTILENCE = ENCHANTMENTS.register("pestilence", PestilenceCurse::new);
+    public static final RegistryObject<Enchantment> PESTILENCE = ENCHANTMENTS.register("pestilence", PestilenceCurse::new);
+    public static final RegistryObject<Enchantment> FAMINE = ENCHANTMENTS.register("famine", FamineCurse::new);
 }

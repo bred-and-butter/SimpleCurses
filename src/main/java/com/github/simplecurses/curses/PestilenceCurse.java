@@ -27,7 +27,7 @@ public class PestilenceCurse extends Enchantment {
         return true;
     }
 
-    private void onFoodOrDrinkConsumed(LivingEntityUseItemEvent event) {
+    private void onFoodOrDrinkConsumed(LivingEntityUseItemEvent.Finish event) {
         Player player = (Player) event.getEntity();
 
         if (player != null && !player.level().isClientSide() && player.isAlive()) {
