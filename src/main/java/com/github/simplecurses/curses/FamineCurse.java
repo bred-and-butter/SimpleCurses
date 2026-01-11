@@ -29,16 +29,15 @@ public class FamineCurse extends Enchantment {
         Player player = event.player;
 
         if (player.level().getGameTime() % 20 != 0) return;
+        if (player.isCreative() || player.isSpectator()) return;
 
         final int level = EnchantmentHelper.getEnchantmentLevel(this, player);
         if (level > 0) {
-            if (player.isCreative() || player.isSpectator()) return;
-
             FoodData foodData = player.getFoodData();
             float exhaustion = foodData.getExhaustionLevel();
 
             LOGGER.info(String.valueOf(exhaustion));
-            foodData.addExhaustion(exhaustion * 3);
+            foodData.addExhaustion((float) (0.5));
         }
     }
 }

@@ -30,10 +30,6 @@ public class IgnoranceCurse extends Enchantment {
             if (level > 0 && !item.isCorrectToolForDrops(event.getState())) {
                 final ServerPlayer damagerEntity = event.getPlayer() instanceof ServerPlayer ? (ServerPlayer) event.getPlayer() : null;
                 item.hurt((int) Math.ceil(item.getMaxDamage() * 0.1), event.getLevel().getRandom(), damagerEntity);
-
-                final Player user = event.getPlayer();
-                //event.getLevel().playSound(user, user.blockPosition(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS);
-                user.playSound(SoundEvents.ITEM_BREAK); //doesnt work
             }
         }
     }

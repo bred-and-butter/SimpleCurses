@@ -30,14 +30,14 @@
   "enchantment.simplecurses.ruin.desc": "This item cannot be repaired",
   "enchantment.simplecurses.ignorance.desc": "Breaking the wrong type of block with this tool causes severe durability damage",
   "enchantment.simplecurses.war.desc": "Neutral mobs are always hostile",
-  "enchantment.simplecurses.death.desc": "Lose maximum health every time you die, recover your health by killing mobs",
-  "enchantment.simplecurses.famine.desc": "Hunger depletes thrice as fast",
-  "enchantment.simplecurses.pestilence.desc": "Eating or drinking poisons you",
+  "enchantment.simplecurses.death.desc": "Lose maximum health if you get hit too many times, recover your health by killing mobs",
+  "enchantment.simplecurses.famine.desc": "Hunger depletes passively",
+  "enchantment.simplecurses.pestilence.desc": "Eating poisons you",
   "enchantment.simplecurses.greed.desc": "Has Fortune III, but take damage whenever gold, emeralds or diamonds enter your inventory",
   "enchantment.simplecurses.envy.desc": "Has Looting III, but take damage whenever you kill a mob",
   "enchantment.simplecurses.gluttony.desc": "Your exact Hunger level is hidden and you can eat when full",
   "enchantment.simplecurses.sloth.desc": "Reduced attack, mining and movement speed. Reduced further each night spent awake",
   "enchantment.simplecurses.lust.desc": "Whenever you breed animals, one more baby is born, but they cannot reproduce",
   "enchantment.simplecurses.wrath.desc": "Gain Strength and Speed whenever you kill X mobs, up to 5, but you have weakness and slowness otherwise",
-  "enchantment.simplecurses.pride.desc": "If you are at full health, gain increased movement speed, jump height and armor toughness, but if not, you have mining fatigue and weakness, and gain slowness when hit."
+  "enchantment.simplecurses.pride.desc": "If you are at full health, gain increased movement speed, jump height and damage, but if you are hit, gain mining fatigue, weakness and slowness."
 }

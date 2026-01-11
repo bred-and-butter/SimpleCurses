@@ -1,7 +1,5 @@
 package com.github.simplecurses.curses;
 
-//import net.minecraftforge.event.entity.player.
-import com.mojang.logging.LogUtils;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -12,10 +10,8 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import org.slf4j.Logger;
 
 public class PestilenceCurse extends Enchantment {
-    //private static final Logger LOGGER = LogUtils.getLogger();
 
     public PestilenceCurse() {
         super(Rarity.VERY_RARE, EnchantmentCategory.ARMOR_FEET, new EquipmentSlot[]{EquipmentSlot.FEET});
