@@ -25,7 +25,7 @@ public class WiltingCurse extends Enchantment {
     private static final int BASE_RADIUS = 3;
 
     public WiltingCurse() {
-        super(Rarity.VERY_RARE, EnchantmentCategory.ARMOR_FEET, new EquipmentSlot[]{EquipmentSlot.FEET});
+        super(Rarity.COMMON, EnchantmentCategory.ARMOR_FEET, new EquipmentSlot[]{EquipmentSlot.FEET});
         MinecraftForge.EVENT_BUS.addListener(this::onPlayerTick);
     }
 
