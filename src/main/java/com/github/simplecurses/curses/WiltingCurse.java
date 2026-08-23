@@ -1,6 +1,5 @@
 package com.github.simplecurses.curses;
 
-import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -17,11 +16,8 @@ import net.minecraft.world.level.block.StemBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
-import org.slf4j.Logger;
 
 public class WiltingCurse extends Enchantment {
-    private static final Logger LOGGER = LogUtils.getLogger();
-
     private static final int BASE_RADIUS = 3;
 
     public WiltingCurse() {
@@ -49,15 +45,12 @@ public class WiltingCurse extends Enchantment {
 
         if (curseLevel > 0) {
             if (level.getGameTime() % 200 == 0 && level.getRandom().nextDouble() < 0.5) { //mudar isso pra 0.2 dps
-                LOGGER.info("initiating plant wilting");
-
-                regressCropsAroundPlayer(player);
+                regressCropsAroundPlayer(level, player);
             }
         }
     }
 
-    private void regressCropsAroundPlayer(Player player) {
-        Level level = player.level();
+    private void regressCropsAroundPlayer(Level level, Player player) {
         BlockPos playerPos = player.blockPosition();
         int radius = BASE_RADIUS;
 
@@ -68,7 +61,6 @@ public class WiltingCurse extends Enchantment {
                     BlockState state = level.getBlockState(checkPos);
 
                     if (isCrop(state) && level.getRandom().nextDouble() < 0.5) {
-                        LOGGER.info("crop found, wilting it");
                         regressCrop(level, checkPos, state);
                     }
                 }

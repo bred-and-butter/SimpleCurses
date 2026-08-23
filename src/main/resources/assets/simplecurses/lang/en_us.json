@@ -15,6 +15,8 @@
   "enchantment.simplecurses.death": "Curse of Death",
   "enchantment.simplecurses.famine": "Curse of Famine",
   "enchantment.simplecurses.pestilence": "Curse of Pestilence",
+
+
   "enchantment.simplecurses.greed": "Curse of Greed",
   "enchantment.simplecurses.envy": "Curse of Envy",
   "enchantment.simplecurses.gluttony": "Curse of Gluttony",
@@ -29,14 +31,16 @@
   "enchantment.simplecurses.misfortune.desc": "Greatly reduced Luck. Unfortunate events may happen to you",
   "enchantment.simplecurses.echoes.desc": "You hallucinate unsettling noises",
   "enchantment.simplecurses.sinking.desc": "You sink faster while in water",
-  "enchantment.simplecurses.ruin.desc": "This item cannot be repaired",
+  "enchantment.simplecurses.ruin.desc": "This item cannot be used in an anvil",
   "enchantment.simplecurses.ignorance.desc": "Breaking the wrong type of block with this tool causes severe durability damage",
   "enchantment.simplecurses.wilting.desc": "Crops around you wilt",
   "enchantment.simplecurses.undead.desc": "You have basic properties of the undead",
   "enchantment.simplecurses.war.desc": "Neutral mobs are always hostile",
   "enchantment.simplecurses.death.desc": "Lose maximum health if you get hit too many times, recover your health by killing mobs",
-  "enchantment.simplecurses.famine.desc": "Hunger depletes passively",
-  "enchantment.simplecurses.pestilence.desc": "Eating poisons you",
+  "enchantment.simplecurses.famine.desc": "Inflicts Hunger on the wearer",
+  "enchantment.simplecurses.pestilence.desc": "Eating poisons you. Also poisons nearby entities if you are already poisoned",
+
+
   "enchantment.simplecurses.greed.desc": "Has Fortune III, but take damage when picking up items, except for gold, emeralds and diamonds",
   "enchantment.simplecurses.envy.desc": "Has Looting III, but take damage whenever you kill a mob",
   "enchantment.simplecurses.gluttony.desc": "Your exact Hunger level is hidden and you can eat when full",
