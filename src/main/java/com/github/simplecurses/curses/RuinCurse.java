@@ -11,7 +11,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 
 public class RuinCurse extends Enchantment {
     public RuinCurse() {
-        super(Rarity.RARE, EnchantmentCategory.BREAKABLE, EquipmentSlot.values());
+        super(Rarity.VERY_RARE, EnchantmentCategory.BREAKABLE, EquipmentSlot.values());
         MinecraftForge.EVENT_BUS.addListener(EventPriority.LOWEST, this::onAnvilUpdate);
     }
 
